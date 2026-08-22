@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head><title>Movies - MovieHub</title><link rel="stylesheet" href="/assets/style.css"></head>
+<body>
+<nav><a href="/">MovieHub</a><a href="/movies">Movies</a><a href="/movies/new">Add Movie</a></nav>
+<main>
+<h1>Movies</h1>
+<form class="search" method="GET" action="/movies">
+<input name="search" value="<%= search %>" placeholder="Search movies..."><button>Search</button>
+</form>
+<div class="grid">
+<% movies.forEach(movie => { %>
+<article class="card">
+<% if (movie.image) { %><img src="<%= movie.image %>" alt="<%= movie.title %>"><% } %>
+<h2><%= movie.title %></h2><p><%= movie.description %></p>
+<p><b>Genre:</b> <%= movie.genre ? movie.genre.name : 'N/A' %></p>
+<p><b>Rating:</b> <%= movie.rating %>/10</p>
+<a class="button" href="/movies/<%= movie._id %>">View Details</a>
+</article>
+<% }) %>
+</div>
+<% if (!movies.length) { %><p>No movies found.</p><% } %>
+</main>
+</body>
+</html>

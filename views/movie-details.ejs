@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head><title><%= movie.title %> - MovieHub</title><link rel="stylesheet" href="/assets/style.css"></head>
+<body>
+<nav><a href="/">MovieHub</a><a href="/movies">Movies</a><a href="/movies/new">Add Movie</a></nav>
+<main>
+<% if (movie.image) { %><img class="details-image" src="<%= movie.image %>" alt="<%= movie.title %>"><% } %>
+<h1><%= movie.title %></h1><p><%= movie.description %></p>
+<p><b>Genre:</b> <%= movie.genre ? movie.genre.name : 'N/A' %></p>
+<p><b>Release Year:</b> <%= movie.releaseYear %></p><p><b>Rating:</b> <%= movie.rating %>/10</p>
+<a class="button" href="/movies/<%= movie._id %>/edit">Edit</a>
+<form method="POST" action="/movies/<%= movie._id %>/delete" style="display:inline"><button class="danger">Delete</button></form>
+<h2>Reviews (<%= reviewCount %>)</h2>
+<% reviews.forEach(r => { %><div class="review"><b><%= r.username %></b> ⭐ <%= r.rating %>/5<p><%= r.comment %></p><form method="POST" action="/reviews/<%= r._id %>/delete"><button class="danger">Delete Review</button></form></div><% }) %>
+<h3>Add Review</h3>
+<form method="POST" action="/movies/<%= movie._id %>/reviews">
+<label>Name</label><input name="username" required>
+<label>Rating</label><select name="rating"><option>5</option><option>4</option><option>3</option><option>2</option><option>1</option></select>
+<label>Comment</label><textarea name="comment" required></textarea><button>Submit Review</button>
+</form>
+</main>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head><title>Add Movie</title><link rel="stylesheet" href="/assets/style.css"></head>
+<body>
+<nav><a href="/">MovieHub</a><a href="/movies">Movies</a></nav>
+<main><h1>Add Movie</h1>
+<% if (error) { %><p class="error"><%= error %></p><% } %>
+<form method="POST" action="/movies" enctype="multipart/form-data">
+<label>Title</label><input name="title" required>
+<label>Description</label><textarea name="description" required></textarea>
+<label>Genre</label><select name="genre" required><option value="">Select genre</option><% genres.forEach(g => { %><option value="<%= g._id %>"><%= g.name %></option><% }) %></select>
+<label>Release Year</label><input type="number" name="releaseYear" min="1900" max="2100" required>
+<label>Rating (0-10)</label><input type="number" name="rating" min="0" max="10" step="0.1" required>
+<label>Movie Image</label><input type="file" name="image" accept="image/*">
+<button>Add Movie</button>
+</form>
+<h2>Add Genre</h2>
+<form method="POST" action="/genres"><input name="name" placeholder="Genre name" required><button>Add Genre</button></form>
+</main>
+</body>
+</html>
